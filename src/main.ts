@@ -26,11 +26,20 @@ const sites = [
   {
     matcher: /^https:\/\/booklog\.jp\/item\/1\/.*/,
     element: () => {
-      const h1 = document.querySelector(
+      // desktop
+      let h1 = document.querySelector(
         "#item-area > div.inner > div.item-info-area > h1",
-      )!;
+      );
+
+      if (!h1) {
+        // mobile
+        h1 = document.querySelector(
+          "#main > div > section.item-area.ruled-line.b20P > div.item-info-container > div.right-area > h1",
+        );
+      }
+
       const app = document.createElement("div");
-      h1.insertAdjacentElement("afterend", app);
+      h1!.insertAdjacentElement("afterend", app);
       return app;
     },
     component: Booklog,
